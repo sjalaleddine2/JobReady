@@ -1,0 +1,116 @@
+{{!-- Citation for the following page:
+Date: 12/05/2022
+Adapted from: 
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
+<a href="users">Users</a> | <a href="questions">Questions</a> | <a href="classes">Classes</a>  | <a href="projects">Projects</a>  | <a href="internships">Internships</a>  | <a href="users-questions">Users Questions</a>  | <a href="users-classes">Users Classes</a> 
+<h1>Projects</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+{{!-- Create a table --}}
+<table id="project-table" border="1" cellpadding="5">>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Project ID</th>
+            <th>User Name</th>
+            <th>Description</th>
+            <th>Language</th>
+            <th>Github link</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print in order --}}
+        {{#each data}}
+        <tr data-value={{this.project_id}}>>
+            <td>{{this.project_id}}</td>
+            <td>{{this.full_name}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.language}}</td>
+            <td>{{this.github_link}}</td>
+            <td><button onclick="deleteProject({{this.project_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_project.js"></script>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Project</h2>
+<p>To add a new project, please enter the project's information down below</p>
+<form id="add-project-form-ajax">
+    <label for="input-fullname">Full name: </label>
+    <select name="input-user_id" id="input-user_id">
+        <option value="">No User</option>
+        {{#each data1}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-description">Description*: </label>
+    <input type="text" name="input-description" id="input-description" required>
+
+    <label for="input-language">Language*: </label>
+    <input type="text" name="input-language" id="input-language" required>
+
+     <p> </p>
+
+    <label for="input-git_link">Github*: </label>
+    <input type="text" name="input-git_link" id="input-git_link" required>
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_project.js"></script>
+
+
+<h2>Search for Project</h2>
+<p>Search by language using the field below.</p>
+<form id="search-project-html" method='GET' action='/projects'>
+    <label for="input-language">Search by Language: </label>
+    <input type="text" name="language" id="input-language-html-search">
+    
+    <input type="submit">
+    <a href='/projects'><button>Reset</button></a>
+</form>
+
+<h2>Updating a Project's Information</h2>
+<p>To update a specific project's information select the git link from the drop-down menu on the left and input the new information in the other boxes</p>
+<form id="update-project-form-ajax">
+    <label for="update-git_link">Github*: </label>
+    <select name="update-git_link" id="mySelect" onChange="updateInputs()" required>
+        <option value="test">Select a project</option>
+        {{#each data}}
+        <option value="{{this.project_id}}">{{this.github_link}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-fullname">Full name: </label>
+    <select name="update-user_id" id="update-user_id">
+        <option value="">No User</option>
+        {{#each data1}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-description">Description*: </label>
+    <input type="text" name="update-description" id="update-description" required>
+
+    <label for="update-language">Language*: </label>
+    <input type="text" name="update-language" id="update-language" required>
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_project.js"></script>

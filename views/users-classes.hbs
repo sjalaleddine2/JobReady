@@ -1,0 +1,65 @@
+{{!-- Citation for the following page:
+Date: 12/05/2022
+Adapted from: 
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
+<a href="users">Users</a> | <a href="questions">Questions</a> | <a href="classes">Classes</a>  | <a href="projects">Projects</a>  | <a href="internships">Internships</a>  | <a href="users-questions">Users Questions</a>  | <a href="users-classes">Users Classes</a> 
+<h1>Users Classes</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+{{!-- Create a table --}}
+<table id="users-classes-table" border="1" cellpadding="5">>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print in order --}}
+        {{#each data}}
+        <tr data-value={{this.users_classes_id}}>>
+            <td>{{this.users_classes_id}}</td>
+            <td>{{this.full_name}}</td>
+            <td>{{this.name}}</td>
+            <td><button onclick="deleteUsersClasses({{this.users_classes_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_users-classes.js"></script>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Create User and Class pair</h2>
+<p>To add a new pair, please use boxes below</p>
+<form id="add-users-classes-form-ajax">
+    <label for="input-fullname">Full name*: </label>
+    <select name="input-user_id" id="input-user_id" required>
+        {{#each data1}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-name">Class*: </label>
+    <select name="input-name" id="input-name" required>
+        {{#each data2}}
+        <option value="{{this.class_id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_users-classes.js"></script>

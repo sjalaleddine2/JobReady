@@ -1,0 +1,110 @@
+{{!-- Citation for the following page:
+Date: 12/05/2022
+Adapted from: 
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
+<a href="users">Users</a> | <a href="questions">Questions</a> | <a href="classes">Classes</a>  | <a href="projects">Projects</a>  | <a href="internships">Internships</a>  | <a href="users-questions">Users Questions</a>  | <a href="users-classes">Users Classes</a> 
+<h1>Questions</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+{{!-- Create a table --}}
+<table id="question-table" border="1" cellpadding="5">>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Question ID</th>
+            <th>Problem</th>
+            <th>Difficulty</th>
+            <th>Link</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print in order --}}
+        {{#each data}}
+        <tr data-value={{this.question_id}}>>
+            <td>{{this.question_id}}</td>
+            <td>{{this.problem}}</td>
+            <td>{{this.difficulty}}</td>
+            <td>{{this.q_link}}</td>
+            <td><button onclick="deleteQuestion({{this.question_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_question.js"></script>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Question</h2>
+<p>To add a new question, please enter the question's information below</p>
+<form id="add-question-form-ajax">
+    <label for="input-problem">Problem*: </label>
+    <input type="text" name="input-problem" id="input-problem" required>
+    
+      <label> Difficulty* </label> <select name="input-difficulty" id="input-difficulty" required>
+
+                <option value="Easy" >Easy</option>
+
+                <option value="Medium">Medium</option>
+
+                <option value="Hard">Hard</option>
+
+                </select>
+
+    <label for="input-q_link">Link*: </label>
+    <input type="text" name="input-q_link" id="input-q_link" required>
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_question.js"></script>
+
+
+<h2>Search for Question</h2>
+<form id="search-problem-html" method='GET' action='/questions'>
+    <label for="input-problem">Search by Problem: </label>
+    <input type="text" name="problem" id="input-problem-html-search">
+    
+    <input type="submit">
+    <a href='/questions'><button>Reset</button></a>
+</form>
+
+<h2>Updating a Question's Information</h2>
+<p>To update a specific question's information select the problem from the drop-down menu on the left and input the new information in the other boxes</p>
+<form id="update-question-form-ajax">
+
+    <label for="update-problem">Problem*: </label>
+    <select name="update-problem" id="mySelect" onChange="updateInputs()" required>
+        <option value="test">Select a problem</option>
+        {{#each data}}
+        <option value="{{this.question_id}}">{{this.problem}}</option>
+        {{/each}}
+    </select>
+
+      <label> Difficulty* </label> <select name="update-difficulty" id="update-difficulty" required>
+
+                <option value="Easy" >Easy</option>
+
+                <option value="Medium">Medium</option>
+
+                <option value="Hard">Hard</option>
+
+                </select>
+
+    <label for="update-q_link">Link*: </label>
+    <input type="text" name="update-q_link" id="update-q_link" required>
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_question.js"></script>

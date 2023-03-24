@@ -1,0 +1,114 @@
+
+<a href="users">Users</a> | <a href="questions">Questions</a> | <a href="classes">Classes</a>  | <a href="projects">Projects</a>  | <a href="internships">Internships</a>  | <a href="users-questions">Users Questions</a>  | <a href="users-classes">Users Classes</a> 
+<h1>Users Questions</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+{{!-- Create a table --}}
+<table id="users-questions-table" border="1" cellpadding="5">>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Question</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print in order --}}
+        {{#each data}}
+        <tr data-value={{this.users_questions_id}}>>
+            <td>{{this.users_questions_id}}</td>
+            <td>{{this.full_name}}</td>
+            <td>{{this.problem}}</td>
+            <td><button onclick="deleteUsersQuestions({{this.users_questions_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_users-questions.js"></script>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Create User and Question pair</h2>
+<p>To add a new pair, please use boxes below</p>
+<form id="add-users-questions-form-ajax">
+    <label for="input-fullname">Full name*: </label>
+    <select name="input-user_id" id="input-user_id" required>
+        {{#each data1}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-problem">Question*: </label>
+    <select name="input-problem" id="input-problem" required>
+        {{#each data2}}
+        <option value="{{this.question_id}}">{{this.problem}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_users-questions.js"></script>
+
+{{!-- Citation for the following page:
+Date: 12/05/2022
+Adapted from: 
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
+<h2>Search for User Question Pair</h2>
+<p>Search by user name using the dropdown below.</p>
+<form id="search-users-questions-html" method='GET' action='/users-questions'>
+    <label for="input-fullname">Search by Name: </label>
+    <select name="user_id" id="user_id">
+        <option value = ""> Select a User</option>
+        {{#each data1}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+    
+    <input type="submit" >
+    <a href='/users-questions' name="user_id1" value="a"><button>Reset</button></a>
+</form>
+
+<h2>Updating a User Question Pair</h2>
+<p>To update a User Question pair select id from the drop-down menu on the left, and input the new question/full name from the two dropdowns</p>
+<form id="update-users-questions-form-ajax">
+    <label for="update-users_questions_id">ID: </label>
+    <select name="mySelect" id="mySelect" required>
+        <option value="test">Select a project</option>
+        {{#each data}}
+        <option value="{{this.users_questions_id}}">{{this.users_questions_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-user_id">Full Name*: </label>
+    <select name="update-user_id" id="update-user_id" required>
+        <option value="">No User</option>
+        {{#each data1}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-question">Question*: </label>
+    <select name="update-question" id="update-question" required>
+        <option value="">No Question</option>
+        {{#each data2}}
+        <option value="{{this.question_id}}">{{this.problem}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_users-questions.js"></script>

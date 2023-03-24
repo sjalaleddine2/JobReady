@@ -1,0 +1,49 @@
+body {
+    font-size: 20px;
+}
+
+h1 {
+    margin: auto;
+    position: relative;
+    top: 50px;
+    text-align: center;
+
+}
+
+h2 {
+
+    color : black;
+    font-weight: bold;
+    font-size: 35px;
+    top: 80px;
+    position: relative;
+}
+
+table {
+    text-align: center;
+    font-size: 20px;
+    margin: auto;
+    position: relative;
+    top: 50px;
+}
+
+tr {
+    background-color : blanchedalmond;
+    font-weight: bold;
+
+}
+
+td {
+    background-color : rgb(247, 245, 245);
+    font-weight: normal;
+}
+
+form {
+    top: 80px;
+    position: relative;
+}
+
+p   {
+    top: 80px;
+    position: relative;
+}

@@ -1,0 +1,126 @@
+{{!-- Citation for the following page:
+Date: 12/05/2022
+Adapted from: 
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
+<a href="users">Users</a> | <a href="questions">Questions</a> | <a href="classes">Classes</a>  | <a href="projects">Projects</a>  | <a href="internships">Internships</a>  | <a href="users-questions">Users Questions</a>  | <a href="users-classes">Users Classes</a> 
+<h1>Users</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+{{!-- Create a table --}}
+<table id="user-table" border="1" cellpadding="5">>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>User ID</th>
+            <th>Full Name</th>
+            <th>Language</th>
+            <th>University</th>
+            <th>GPA</th>
+            <th>Location</th>
+            <th>Linkedin</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print in order --}}
+        {{#each data}}
+        <tr data-value={{this.user_id}}>>
+            <td>{{this.user_id}}</td>
+            <td>{{this.full_name}}</td>
+            <td>{{this.language}}</td>
+            <td>{{this.university}}</td>
+            <td>{{this.gpa}}</td>
+            <td>{{this.location}}</td>
+            <td>{{this.linkedin}}</td>
+            <td><button onclick="deleteUser({{this.user_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_user.js"></script>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add User</h2>
+<p>To add a new user, please enter the user's information down below</p>
+<form id="add-user-form-ajax">
+    <label for="input-full_name">Full Name*: </label>
+    <input type="text" name="input-full_name" id="input-full_name" required>
+    
+    <label for="input-language">Language*: </label>
+    <input type="text" name="input-language" id="input-language" required>
+
+    <label for="input-university">University*: </label>
+    <input type="text" name="input-uni" id="input-uni" required>
+
+     <p> </p>
+
+    <label for="input-gpa">GPA: </label>
+    <input type="number" min = "0" max = "4" name="input-gpa" id="input-gpa" step = 0.1 >
+
+    <label for="input-location">Location*: </label>
+    <input type="text" name="input-location" id="input-location" required>
+
+    <label for="input-linkedin">Linkedin*: </label>
+    <input type="text" name="input-linkedin" id="input-linkedin" value = "http://linkedin.com" required>
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_user.js"></script>
+
+
+<h2>Search for User</h2>
+<p>Search by full name using the field below. Just the first/last name will work too</p>
+<form id="search-user-html" method='GET' action='/users'>
+    <label for="input-full_name">Search by Full Name: </label>
+    <input type="text" name="full_name" id="input-full_name-html-search">
+    
+    <input type="submit">
+    <a href='/users'><button>Reset</button></a>
+</form>
+
+<h2>Updating A User's Information</h2>
+<p>To update a specific user's information select their name from the drop-down menu on the left and input the new information in the other boxes</p>
+<form id="update-user-form-ajax">
+
+    <label for="update-fullname">Full name*: </label>
+  <select name="update-fullname" id="mySelect" onChange="updateInputs()" required>
+        <option value="test">Select a User</option>
+        {{#each data}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-language">Language*: </label>
+    <input type="text" name="update-language" id="update-language" required>
+
+   <label for="update-university">University*: </label>
+   <input type="text" name="update-uni" id="update-uni"  required> 
+
+     <p> </p>
+
+    <label for="update-gpa">GPA: </label>
+   <input type="number" min = "0" max = "4" step = 0.1 name="update-gpa" id="update-gpa">
+
+   
+    <label for="update-location">Location*: </label>
+    <input type="text" name="update-location" id="update-location" required> 
+
+  <label for="update-linkedin">Linkedin*: </label>
+  <input type="text" name="update-linkedin" id="update-linkedin" value = "http://linkedin.com" required> 
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_user.js"></script>

@@ -1,0 +1,62 @@
+{{!-- Citation for the following page:
+Date: 12/05/2022
+Adapted from: 
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
+<a href="users">Users</a> | <a href="questions">Questions</a> | <a href="classes">Classes</a>  | <a href="projects">Projects</a>  | <a href="internships">Internships</a>  | <a href="users-questions">Users Questions</a>  | <a href="users-classes">Users Classes</a> 
+<h1>Classes</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{{!-- Create a table --}}
+<table id="class-table" border="1" cellpadding="5">>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Class ID</th>
+            <th>Class Name</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print in order --}}
+        {{#each data}}
+        <tr data-value={{this.class_id}}>>
+            <td>{{this.class_id}}</td>
+            <td>{{this.name}}</td>
+            <td><button onclick="deleteClass({{this.class_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_class.js"></script>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Class</h2>
+<p>To add a new class, please enter the class information below</p>
+<form id="add-class-form-ajax">
+    <label for="input-class">Class Name*: </label>
+    <input type="text" name="input-class" id="input-class" required>
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_class.js"></script>
+
+
+<h2>Search for Class</h2>
+<p>Search by Class</p>
+<form id="search-class-html" method='GET' action='/classes'>
+    <label for="input-class">Search by Name: </label>
+    <input type="text" name="class" id="input-class-html-search">
+    
+    <input type="submit">
+    <a href='/classes'><button>Reset</button></a>
+</form>

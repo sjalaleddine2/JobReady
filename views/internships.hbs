@@ -1,0 +1,86 @@
+{{!-- Citation for the following page:
+Date: 12/05/2022
+Adapted from: 
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
+
+<a href="users">Users</a> | <a href="questions">Questions</a> | <a href="classes">Classes</a>  | <a href="projects">Projects</a>  | <a href="internships">Internships</a>  | <a href="users-questions">Users Questions</a>  | <a href="users-classes">Users Classes</a> 
+<h1>Internships</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" type="public/css" href="styles.css" />
+
+{{!-- Create a table --}}
+<table id="internship-table" border="1" cellpadding="5">>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Internship ID</th>
+            <th>Full Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Github link</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print in order --}}
+        {{#each data}}
+        <tr data-value={{this.internship_id}}>>
+            <td>{{this.internship_id}}</td>
+            <td>{{this.full_name}}</td>
+            <td>{{this.start_date}}</td>
+            <td>{{this.end_date}}</td>
+            <td>{{this.company}}</td>
+            <td><button onclick="deleteInternship({{this.internship_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_internship.js"></script>
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Internship</h2>
+<p>To add a new internship, please enter the internship's information down below</p>
+<form id="add-internship-form-ajax">
+    <label for="input-full_name">Full Name*: </label>
+    <select name="input-user_id" id="input-user_id" required>
+        <option value="">Select a User</option>
+        {{#each data1}}
+        <option value="{{this.user_id}}">{{this.full_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-start_date">Start Date*: </label>
+    <input type="date" name="input-start_date" id="input-start_date" required>
+
+    <label for="input-end_date">End Date*: </label>
+    <input type="date" name="input-end_date" id="input-end_date" required>
+
+     <p> </p>
+
+    <label for="input-company">Company*: </label>
+    <input type="text" name="input-company" id="input-company" required>
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_internship.js"></script>
+
+
+{{!-- <h2>Search for Internships</h2>
+<p>Search by user using the field below.</p>
+<form id="search-project-html" method='GET' action='/projects'>
+    <label for="input-language">Search by Language: </label>
+    <input type="text" name="language" id="input-language-html-search">
+    
+    <input type="submit">
+    <a href='/projects'><button>Reset</button></a>
+</form> --}}
